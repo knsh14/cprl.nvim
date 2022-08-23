@@ -87,14 +87,14 @@ function copylink(host_mode, ref_mode, firstline, lastline)
         local trimed = trim_git_suffix(repo)
         return  host, trimed
     end
-    remotes['^https:(.*)/(.*)$'] = function(uri)
-        local host, repo = string.match(uri, '^https:(.*)/(.*)$')
+    remotes['^https://(.*@)??(.*)/(.*)$'] = function(uri)
+        local n, host, repo = string.match(uri, '^https://(.*@)??(.*)/(.*)$')
         if host == nil then
             display(uri .. " doesn't match to git protocol uri", "error")
             return ""
         end
         local trimed = trim_git_suffix(repo)
-        return host, repo
+        return host, trimed
     end
 
     local host, repo = '', ''
