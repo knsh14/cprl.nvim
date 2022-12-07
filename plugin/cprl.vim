@@ -3,4 +3,4 @@ if exists('g:cprl')
 endif
 let g:cprl = 1
 
-command! -range -nargs=+ CopyRemoteLink <line1>,<line2>call cprl#copylink(<f-args>)
+command! -range -nargs=* CopyRemoteLink <line1>,<line2>call cprl#copylink(<f-args>)
