@@ -60,7 +60,6 @@ function copylink(host_mode, ref_mode, firstline, lastline)
     local root = shellexec("git rev-parse --show-toplevel")
     root = string.gsub(root, '[\r\n ]', '')
     local p = vim.fn.expand('%:p')
-    -- local path_from_root = string.gsub(p, root, '')
     local s, e = string.find(p, root, 1, true)
     if s == nil or e == nil then
       display(string.format("%s is not found in \n%s", root, p), "error")
@@ -78,8 +77,8 @@ function copylink(host_mode, ref_mode, firstline, lastline)
         local trimed = trim_git_suffix(repo)
         return  host, trimed
     end
-    remotes['^ssh://git@(.{-})/(.*)$'] = function(uri)
-        local host, repo = string.match(uri, '^ssh://git@(.{-})/(.*)$')
+    remotes["^ssh://git@(.*)/(.*/.*)$"] = function(uri)
+        local host, repo = string.match(uri, '^ssh://git@(.*)/(.*/.*)$')
         if host == nil or repo == nil then
             display(uri .. " doesn't match to git protocol uri", "error")
             return nil, nil
